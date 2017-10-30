@@ -1,7 +1,7 @@
-import common from './common'
-import {
-  Indicator
-} from 'mint-ui'
+// import common from './common'
+// import {
+//   Indicator
+// } from 'mint-ui'
 let Axios = require('axios')
 let Cookie = require('js-cookie')
 // import mock from './mock'
@@ -37,12 +37,12 @@ function handleResp (promise) {
 }
 
 function Service () {
-  let env = process.env.NODE_ENV
+  // let env = process.env.NODE_ENV
   let self = this
 
   let axiosIns = null
-
-  if (env === 'development') {
+  console.log(process.env, process, '1233333333333333')
+  if (process.browser) {
     axiosIns = Axios.create({
       timeout: 10000,
       baseURL: 'http://scrmdental.lctest.cn'
@@ -57,7 +57,7 @@ function Service () {
 
   axiosIns.interceptors.request.use(function (config) {
     // Do something before request is sent
-    Indicator.open('加载中...')
+    // Indicator.open('加载中...')
     return config
   }, function (error) {
     // Do something with request error
@@ -65,10 +65,10 @@ function Service () {
   })
 
   axiosIns.interceptors.response.use(function (response) {
-    Indicator.close()
+    // Indicator.close()
     return response
   }, function (error) {
-    Indicator.close()
+    // Indicator.close()
     // Do something with response error
     return Promise.reject(error)
   })
@@ -80,13 +80,13 @@ function Service () {
   axiosIns.defaults.headers.common[self.TOKEN_KEY] = getToken()
 
   function getToken () {
-    if (env === 'development') {
+    if (process.browser) {
       return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXMiOiI0NjYzOTkiLCJpc3MiOiJsYyIsIm9pZCI6Im8tRVpXd1pEQnFkRTAwanFQbExqRnFaeDhIT3MiLCJleHAiOjE1MDk0NTY5ODMsImlhdCI6MTUwODU5Mjk4MywiYWlkIjoid3g2NjhlYTgxM2UzNGM1Yjc2In0.LWSXxcYZi8ck3lK-PsHxulcW_I__umAb5OZYWDCqgrY'
     } else {
       let token = Cookie.get(self.TOKEN_KEY)
-      if (!token) {
-        common.jumpTo('/static/bad.html')
-      }
+      // if (!token) {
+      //   common.jumpTo('/static/bad.html')
+      // }
       return token
     }
   }

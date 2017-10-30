@@ -53,8 +53,7 @@ module.exports = {
         },
         'transform-async-to-generator',
         'transform-runtime'
-      ]]],
-      comments: true
+      ]]]
     }
   },
   css: [
@@ -64,7 +63,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/element-ui', ssr: false },
     { src: '~/plugins/mint-ui', ssr: false },
-    { src: '~/plugins/pxToRem', ssr: false }
+    { src: '~/plugins/pxToRem', ssr: false },
+    { src: '~/plugins/service', ssr: false }
   ],
   router: {
     scrollBehavior: function _scrollBehavior (to, from, savedPosition) {
